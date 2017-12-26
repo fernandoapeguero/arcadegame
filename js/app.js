@@ -46,7 +46,7 @@ Enemy.prototype.render = function () {
 const Player = function () {
     this.sprite = "images/char-boy.png";
     this.x = 200;
-    this.y = 380;
+    this.y = 400;
 
 
 }
@@ -61,8 +61,14 @@ Player.prototype.render = function () {
 
 Player.prototype.handleInput = function (e) {
    // add similar logic to move character around up button working
-    if(e === "up"){
-        this.y -= 80;
+    if(e === "up" && this.y > 0){
+        this.y -= 90;
+    }  if(e === "down" && this.y < 400){
+        this.y += 90;
+    } else if (e ==="left" && this.x > 0){
+          this.x -= 100;
+    } else if (e === "right" && this.x < 400){
+        this.x += 100;
     }
 
 }
