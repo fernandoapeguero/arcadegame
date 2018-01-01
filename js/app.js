@@ -1,10 +1,30 @@
 // Enemies our player must avoid
 const min = -100;
-const max = -500; //Math.random() * (-800 - -300) + -800;
+const max = -600; //Math.random() * (-800 - -300) + -800;
 let speed = [35, 50, 100];
 let positionY = 380;
 let positionX = 200;
+//game sounds
+const winSound = new Audio("audio/win.wav");
+const jumpSound = new Audio("audio/jumpsound.mp3");
+const gameMusic = new Audio("audio/gamemusic.mp3");
+const dieSound = new Audio("audio/diesound.mp3");
+//game music and sounds
+gameMusic.loop = true;
+// gameMusic.play();
 
+function win(){
+    winSound.currentTime = 0 ;
+    winSound.play();
+
+}
+
+jumpSound.volume = 0.1;
+//jump sound player and reseter
+function jumping(){
+    jumpSound.currentTime = 0;
+    jumpSound.play();
+}
 
 var Enemy = function (x, y, radius) {
     // Variables applied to each of our instances go here,
@@ -26,7 +46,7 @@ Enemy.prototype.update = function (dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
 
-    enemi1.x += speed[1] * dt;
+    enemi1.x += speed[2] * dt;
     enemi2.x += speed[0] * dt;
     enemi3.x += speed[1] * dt;
     enemi4.x += speed[0] * dt;
@@ -66,9 +86,8 @@ let lastX = 0;
 Player.prototype.update = function () {
 
     if (this.y < 20) {
-        this.x = 200;
-        this.y = 400;
-
+       playerStarPosition();
+       win();
     }
 
     if (getDistance(this.x, this.y, enemi1.x, enemi1.y) < this.radius + enemi1.radius ||
@@ -92,13 +111,17 @@ Player.prototype.handleInput = function (e) {
     // add similar logic to move character around up button working
     if (e === "up" && this.y > 0) {
         this.y -= 90;
+        jumping();
     }
     if (e === "down" && this.y < 400) {
         this.y += 90;
+        jumping();
     } else if (e === "left" && this.x > 0) {
         this.x -= 100;
+        jumping();
     } else if (e === "right" && this.x < 400) {
         this.x += 100;
+        jumping();
     }
 
 }
@@ -121,6 +144,11 @@ function getDistance(x1, y1, x2, y2) {
     let distanceY = y2 - y1;
 
     return Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2));
+}
+
+function playerStarPosition(){
+    player.x = 200;
+    player.y = 400;
 }
 // Now instantiate your objects.
 
