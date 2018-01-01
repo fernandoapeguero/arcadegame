@@ -120,14 +120,12 @@ Player.prototype.update = function () {
         playerDeath();
         WinStreak = 0 ;
         crashStreak += 1;
-        console.log(`${WinStreak} ${crashStreak}`);
     } else if ( getDistance(this.x, this.y, enemi1.x, enemi1.y) < this.radius + enemi1.radius + 50 ||
     getDistance(this.x, this.y, enemi2.x, enemi2.y) < this.radius + enemi2.radius + 50 ||
     getDistance(this.x, this.y, enemi3.x, enemi3.y) < this.radius + enemi3.radius + 50 ||
     getDistance(this.x, this.y, enemi4.x, enemi4.y) < this.radius + enemi4.radius + 50 ||
     getDistance(this.x, this.y, enemi5.x, enemi5.y) < this.radius + enemi5.radius + 50 ||
     getDistance(this.x, this.y, enemi6.x, enemi6.y) < this.radius + enemi6.radius + 50 ){
-        bugSound.currentTime = 0 ;
         bugSound.play();
     }
 
