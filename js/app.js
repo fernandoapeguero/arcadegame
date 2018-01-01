@@ -1,6 +1,11 @@
-// Enemies our player must avoid
+//player score
+let WinStreak = 0 ;
+let crashStreak = 0;
+const scores = document.querySelector(".streaks");
+const resetButton = document.querySelector(".reset");
+
 const min = -100;
-const max = -600; //Math.random() * (-800 - -300) + -800;
+const max = -500; //Math.random() * (-800 - -300) + -800;
 let speed = [35, 50, 100];
 let positionY = 380;
 let positionX = 200;
@@ -9,23 +14,34 @@ const winSound = new Audio("audio/win.wav");
 const jumpSound = new Audio("audio/jumpsound.mp3");
 const gameMusic = new Audio("audio/gamemusic.mp3");
 const dieSound = new Audio("audio/diesound.mp3");
+const bugSound = new Audio("audio/waspcar.wav");
 //game music and sounds
 gameMusic.loop = true;
-// gameMusic.play();
+gameMusic.play();
 
-function win(){
-    winSound.currentTime = 0 ;
+//sounds volumes
+gameMusic.volume = 0.5;
+bugSound.volume = 0.1;
+dieSound.volume = 0.3;
+jumpSound.volume = 0.1;
+
+function playerDeath() {
+    dieSound.currentTime = 0;
+    dieSound.play();
+}
+
+function win() {
+    winSound.currentTime = 0;
     winSound.play();
 
 }
 
-jumpSound.volume = 0.1;
 //jump sound player and reseter
-function jumping(){
+function jumping() {
     jumpSound.currentTime = 0;
     jumpSound.play();
 }
-
+// Enemies our player must avoid
 var Enemy = function (x, y, radius) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
@@ -86,8 +102,11 @@ let lastX = 0;
 Player.prototype.update = function () {
 
     if (this.y < 20) {
-       playerStarPosition();
-       win();
+        playerStarPosition();
+        win();
+        WinStreak += 1;
+        crashStreak = 0;
+        console.log(`${WinStreak} ${crashStreak}`);
     }
 
     if (getDistance(this.x, this.y, enemi1.x, enemi1.y) < this.radius + enemi1.radius ||
@@ -98,8 +117,21 @@ Player.prototype.update = function () {
         getDistance(this.x, this.y, enemi6.x, enemi6.y) < this.radius + enemi6.radius) {
         this.x = 200;
         this.y = 400;
-
+        playerDeath();
+        WinStreak = 0 ;
+        crashStreak += 1;
+        console.log(`${WinStreak} ${crashStreak}`);
+    } else if ( getDistance(this.x, this.y, enemi1.x, enemi1.y) < this.radius + enemi1.radius + 50 ||
+    getDistance(this.x, this.y, enemi2.x, enemi2.y) < this.radius + enemi2.radius + 50 ||
+    getDistance(this.x, this.y, enemi3.x, enemi3.y) < this.radius + enemi3.radius + 50 ||
+    getDistance(this.x, this.y, enemi4.x, enemi4.y) < this.radius + enemi4.radius + 50 ||
+    getDistance(this.x, this.y, enemi5.x, enemi5.y) < this.radius + enemi5.radius + 50 ||
+    getDistance(this.x, this.y, enemi6.x, enemi6.y) < this.radius + enemi6.radius + 50 ){
+        bugSound.currentTime = 0 ;
+        bugSound.play();
     }
+
+    scores.innerHTML = `WinStreaks: ${WinStreak}&nbsp&nbsp CrashStreak: ${crashStreak} &nbsp&nbsp`;
 }
 
 
@@ -146,7 +178,7 @@ function getDistance(x1, y1, x2, y2) {
     return Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2));
 }
 
-function playerStarPosition(){
+function playerStarPosition() {
     player.x = 200;
     player.y = 400;
 }
@@ -155,7 +187,13 @@ function playerStarPosition(){
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
+resetButton.addEventListener("click" ,scoreReseter );
 
+function scoreReseter(){
+WinStreak = 0 ;
+crashStreak = 0 ;
+
+}
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
