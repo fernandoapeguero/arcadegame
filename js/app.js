@@ -16,7 +16,7 @@ var Enemy = function (x, y, radius) {
     this.x = x;
     this.y = y;
     this.radius = radius;
-   
+
 };
 
 // Update the enemy's position, required method for game
@@ -54,7 +54,7 @@ const enemi6 = new Enemy(randomizeLocation(), 300, 40);
 // This class requires an update(), render() and
 // a handleInput() method.
 
-const Player = function() {
+const Player = function () {
     this.sprite = "images/char-boy.png";
     this.x = 200;
     this.y = 400;
@@ -66,32 +66,21 @@ let lastX = 0;
 Player.prototype.update = function () {
 
     if (this.y < 20) {
-     this.x = 200;
-     this.y = 400;
-
-    }
-
-    if (getDistance(this.x, this.y, enemi1.x, enemi1.y) < this.radius + enemi1.radius
-    || getDistance(this.x, this.y, enemi2.x, enemi2.y) < this.radius + enemi2.radius
-    || getDistance(this.x, this.y, enemi3.x, enemi3.y) < this.radius + enemi3.radius
-    || getDistance(this.x, this.y, enemi4.x, enemi4.y) < this.radius + enemi4.radius
-    || getDistance(this.x, this.y, enemi5.x, enemi5.y) < this.radius + enemi5.radius
-    || getDistance(this.x, this.y, enemi6.x, enemi6.y) < this.radius + enemi6.radius ) {
         this.x = 200;
         this.y = 400;
 
-}
-    // if(this.x > lastX){
-    //     console.log(this.x);
-    // }else if (this.x < lastX){
-    //     console.log(this.x);
-    // }
-    // if(enemi6.x === this.x){
-    //     console.log(`you got ran over`);
-    // }
-    // lastX = this.x;
+    }
 
-//   console.log(getDistance(this.x, this.y, enemi1.x, enemi1.y));
+    if (getDistance(this.x, this.y, enemi1.x, enemi1.y) < this.radius + enemi1.radius ||
+        getDistance(this.x, this.y, enemi2.x, enemi2.y) < this.radius + enemi2.radius ||
+        getDistance(this.x, this.y, enemi3.x, enemi3.y) < this.radius + enemi3.radius ||
+        getDistance(this.x, this.y, enemi4.x, enemi4.y) < this.radius + enemi4.radius ||
+        getDistance(this.x, this.y, enemi5.x, enemi5.y) < this.radius + enemi5.radius ||
+        getDistance(this.x, this.y, enemi6.x, enemi6.y) < this.radius + enemi6.radius) {
+        this.x = 200;
+        this.y = 400;
+
+    }
 }
 
 
