@@ -15,7 +15,7 @@ const dieSound = new Audio("audio/diesound.mp3");
 const bugSound = new Audio("audio/waspcar.wav");
 //game music and sounds
 gameMusic.loop = true;
-// gameMusic.play();
+gameMusic.play();
 
 //sounds volumes
 gameMusic.volume = 0.5;
