@@ -14,7 +14,7 @@ and you also need to have winrar or winzip to uncompressed the file.
 * play and enjoy the game.
 
 
-                                    ## How To Play
+## How To Play
 
 ** Launch index.html to open the game in the browser. **
 
@@ -26,4 +26,6 @@ and you also need to have winrar or winzip to uncompressed the file.
 
 ![arrow keys](https://user-images.githubusercontent.com/25759298/34474304-3a083f0a-ef4b-11e7-9352-b6c196cb382c.png)
 
-                                   **How to win the game**
+### How to win the game
+
+there is no end to the game just a winstreak and crashstreak play with friends to see who can get the most win streams out of all of you.
