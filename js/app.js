@@ -40,7 +40,7 @@ function jumping() {
     jumpSound.play();
 }
 // Enemies our player must avoid
-var Enemy = function (x, y, radius , speed = 35) {
+var Enemy = function (x, y, radius, speed = 35) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
@@ -74,12 +74,12 @@ Enemy.prototype.render = function () {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 // instatiating enemies on different location on screen
-const enemi1 = new Enemy(randomizeLocation(), 50, 40 , 100);
-const enemi2 = new Enemy(randomizeLocation(), 50, 40 );
-const enemi3 = new Enemy(randomizeLocation(), 135, 40 , 50);
-const enemi4 = new Enemy(randomizeLocation(), 225, 40 );
-const enemi5 = new Enemy(randomizeLocation(), 135, 40 , 100);
-const enemi6 = new Enemy(randomizeLocation(), 300, 40 , 50);
+const enemi1 = new Enemy(randomizeLocation(), 50, 40, 100);
+const enemi2 = new Enemy(randomizeLocation(), 50, 40);
+const enemi3 = new Enemy(randomizeLocation(), 135, 40, 50);
+const enemi4 = new Enemy(randomizeLocation(), 225, 40);
+const enemi5 = new Enemy(randomizeLocation(), 135, 40, 100);
+const enemi6 = new Enemy(randomizeLocation(), 300, 40, 50);
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
@@ -92,7 +92,7 @@ class Player {
         this.y = 400;
         this.radius = 30;
         this.winStreak = 0;
-        this.crashStreak = 0 ;
+        this.crashStreak = 0;
     }
     starPosition() {
         this.x = 200;
@@ -108,7 +108,7 @@ Player.prototype.update = function () {
         this.starPosition();
         win();
         player.winStreak += 1;
-       player.crashStreak = 0;
+        player.crashStreak = 0;
     }
 
     allEnemies.forEach(enemi => {
