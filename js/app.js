@@ -181,8 +181,8 @@ function playerStarPosition() {
 resetButton.addEventListener("click", scoreReseter);
 
 function scoreReseter() {
-    WinStreak = 0;
-    crashStreak = 0;
+    player.winStreak = 0;
+    player.crashStreak = 0;
 
 }
 
