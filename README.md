@@ -8,7 +8,7 @@ and you also need to have winrar or winzip to uncompressed the file.
 
 ![zip](https://user-images.githubusercontent.com/25759298/34474216-26de24d6-ef4a-11e7-9184-14592ece01b4.jpg)
 
-when you are done.
+*when you are done.*
 * umcropressed the file.
 * open the file in your favorite browser .
 * play and enjoy the game.
