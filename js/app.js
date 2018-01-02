@@ -1,6 +1,4 @@
 //player score
-let WinStreak = 0 ;
-let crashStreak = 0;
 const scores = document.querySelector(".streaks");
 const resetButton = document.querySelector(".reset");
 
@@ -17,7 +15,7 @@ const dieSound = new Audio("audio/diesound.mp3");
 const bugSound = new Audio("audio/waspcar.wav");
 //game music and sounds
 gameMusic.loop = true;
-gameMusic.play();
+// gameMusic.play();
 
 //sounds volumes
 gameMusic.volume = 0.5;
@@ -42,7 +40,7 @@ function jumping() {
     jumpSound.play();
 }
 // Enemies our player must avoid
-var Enemy = function (x, y, radius) {
+var Enemy = function (x, y, radius , speed = 35) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
@@ -52,6 +50,8 @@ var Enemy = function (x, y, radius) {
     this.x = x;
     this.y = y;
     this.radius = radius;
+    this.speed = speed;
+
 
 };
 
@@ -61,13 +61,7 @@ Enemy.prototype.update = function (dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-
-    enemi1.x += speed[2] * dt;
-    enemi2.x += speed[0] * dt;
-    enemi3.x += speed[1] * dt;
-    enemi4.x += speed[0] * dt;
-    enemi5.x += speed[2] * dt;
-    enemi6.x += speed[1] * dt;
+    allEnemies.forEach(enemi => enemi.x += enemi.speed * dt);
 
     if (this.x >= 550) {
         this.x = randomizeLocation();
@@ -80,56 +74,56 @@ Enemy.prototype.render = function () {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 // instatiating enemies on different location on screen
-const enemi1 = new Enemy(randomizeLocation(), 50, 40);
-const enemi2 = new Enemy(randomizeLocation(), 50, 40);
-const enemi3 = new Enemy(randomizeLocation(), 135, 40);
-const enemi4 = new Enemy(randomizeLocation(), 225, 40);
-const enemi5 = new Enemy(randomizeLocation(), 135, 40);
-const enemi6 = new Enemy(randomizeLocation(), 300, 40);
+const enemi1 = new Enemy(randomizeLocation(), 50, 40 , 100);
+const enemi2 = new Enemy(randomizeLocation(), 50, 40 );
+const enemi3 = new Enemy(randomizeLocation(), 135, 40 , 50);
+const enemi4 = new Enemy(randomizeLocation(), 225, 40 );
+const enemi5 = new Enemy(randomizeLocation(), 135, 40 , 100);
+const enemi6 = new Enemy(randomizeLocation(), 300, 40 , 50);
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
 
-const Player = function () {
-    this.sprite = "images/char-boy.png";
-    this.x = 200;
-    this.y = 400;
-    this.radius = 30;
+class Player {
+
+    constructor() {
+        this.sprite = "images/char-boy.png";
+        this.x = 200;
+        this.y = 400;
+        this.radius = 30;
+        this.winStreak = 0;
+        this.crashStreak = 0 ;
+    }
+    starPosition() {
+        this.x = 200;
+        this.y = 400;
+    }
 
 
 }
-let lastX = 0;
+
 Player.prototype.update = function () {
 
     if (this.y < 20) {
-        playerStarPosition();
+        this.starPosition();
         win();
-        WinStreak += 1;
-        crashStreak = 0;
-        console.log(`${WinStreak} ${crashStreak}`);
+        player.winStreak += 1;
+       player.crashStreak = 0;
     }
 
-    if (getDistance(this.x, this.y, enemi1.x, enemi1.y) < this.radius + enemi1.radius ||
-        getDistance(this.x, this.y, enemi2.x, enemi2.y) < this.radius + enemi2.radius ||
-        getDistance(this.x, this.y, enemi3.x, enemi3.y) < this.radius + enemi3.radius ||
-        getDistance(this.x, this.y, enemi4.x, enemi4.y) < this.radius + enemi4.radius ||
-        getDistance(this.x, this.y, enemi5.x, enemi5.y) < this.radius + enemi5.radius ||
-        getDistance(this.x, this.y, enemi6.x, enemi6.y) < this.radius + enemi6.radius) {
-        this.x = 200;
-        this.y = 400;
-        playerDeath();
-        WinStreak = 0 ;
-        crashStreak += 1;
-    } else if ( getDistance(this.x, this.y, enemi1.x, enemi1.y) < this.radius + enemi1.radius + 50 ||
-    getDistance(this.x, this.y, enemi2.x, enemi2.y) < this.radius + enemi2.radius + 50 ||
-    getDistance(this.x, this.y, enemi3.x, enemi3.y) < this.radius + enemi3.radius + 50 ||
-    getDistance(this.x, this.y, enemi4.x, enemi4.y) < this.radius + enemi4.radius + 50 ||
-    getDistance(this.x, this.y, enemi5.x, enemi5.y) < this.radius + enemi5.radius + 50 ||
-    getDistance(this.x, this.y, enemi6.x, enemi6.y) < this.radius + enemi6.radius + 50 ){
-        bugSound.play();
-    }
+    allEnemies.forEach(enemi => {
 
-    scores.innerHTML = `WinStreaks: ${WinStreak}&nbsp&nbsp CrashStreak: ${crashStreak} &nbsp&nbsp`;
+        if (getDistance(this.x, this.y, enemi.x, enemi.y) < this.radius + enemi.radius) {
+            this.starPosition();
+            playerDeath();
+            player.winStreak = 0;
+            player.crashStreak += 1;
+        } else if (getDistance(this.x, this.y, enemi.x, enemi.y) < this.radius + enemi.radius + 40) {
+            bugSound.play();
+        }
+    });
+
+    scores.innerHTML = `WinStreaks: ${this.winStreak}&nbsp&nbsp CrashStreak: ${this.crashStreak} &nbsp&nbsp`;
 }
 
 
@@ -185,11 +179,11 @@ function playerStarPosition() {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-resetButton.addEventListener("click" ,scoreReseter );
+resetButton.addEventListener("click", scoreReseter);
 
-function scoreReseter(){
-WinStreak = 0 ;
-crashStreak = 0 ;
+function scoreReseter() {
+    WinStreak = 0;
+    crashStreak = 0;
 
 }
 
