@@ -14,9 +14,9 @@ and you also need to have winrar or winzip to uncompressed the file.
 * play and enjoy the game.
 
 
-## How To Play
+                                    ## How To Play
 
-** Launch index.html to open the game in the browser.
+** Launch index.html to open the game in the browser. **
 
 ![lady bug](https://user-images.githubusercontent.com/25759298/34474267-cb86ab3e-ef4a-11e7-9e64-d6ca5e23ee21.PNG)
 
@@ -24,3 +24,6 @@ and you also need to have winrar or winzip to uncompressed the file.
 **to play press the arrow keys on your keyboard**
 
 
+![arrow keys](https://user-images.githubusercontent.com/25759298/34474304-3a083f0a-ef4b-11e7-9352-b6c196cb382c.png)
+
+                                   **How to win the game**
