@@ -1,4 +1,4 @@
-# What Do I Need To PLay
+# What Do I Need To Play
 
 you most have one of this browsers to be able to play this game. 
 
