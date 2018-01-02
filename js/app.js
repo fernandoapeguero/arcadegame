@@ -4,7 +4,6 @@ const resetButton = document.querySelector(".reset");
 
 const min = -100;
 const max = -500; //Math.random() * (-800 - -300) + -800;
-let speed = [35, 50, 100];
 let positionY = 380;
 let positionX = 200;
 //game sounds
