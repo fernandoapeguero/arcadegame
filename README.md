@@ -16,7 +16,7 @@ and you also need to have winrar or winzip to uncompressed the file.
 
 ## How To Play
 
-** Launch index.html to open the game in the browser. **
+**Launch index.html to open the game in the browser.**
 
 ![lady bug](https://user-images.githubusercontent.com/25759298/34474267-cb86ab3e-ef4a-11e7-9e64-d6ca5e23ee21.PNG)
 
@@ -28,4 +28,4 @@ and you also need to have winrar or winzip to uncompressed the file.
 
 ### How to win the game
 
-there is no end to the game just a winstreak and crashstreak play with friends to see who can get the most win streams out of all of you.
+Try to evade the ladybug and make it to the water if you make it there you will hear a sound in confirmation that you won that round so you can keep playing there is no end to the game just a winstreak and crashstreak play with friends to see who can get the most win streams out of all of you.
