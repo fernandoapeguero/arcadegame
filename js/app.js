@@ -1,6 +1,7 @@
 //player score
 const scores = document.querySelector(".streaks");
 const resetButton = document.querySelector(".reset");
+const changePlayer = document.querySelector(".changer");
 
 const min = -100;
 const max = -500; //Math.random() * (-800 - -300) + -800;
@@ -21,6 +22,10 @@ gameMusic.volume = 0.5;
 bugSound.volume = 0.1;
 dieSound.volume = 0.3;
 jumpSound.volume = 0.1;
+
+//array of character for the game to change them so you can play with you favorite one have fun
+let playerIndex = 0;
+const chartsArray = ['images/char-boy.png', 'images/char-cat-girl.png', 'images/char-horn-girl.png', 'images/char-pink-girl.png', 'images/char-princess-girl.png'];
 
 function playerDeath() {
     dieSound.currentTime = 0;
@@ -58,7 +63,8 @@ class Enemy {
         // which will ensure the game runs at the same speed for
         // all computers.
         /* the reviewer wanted me to do this.x += this.speed * dt i already try that but it wont works if it was only at one speed them
-        yes but since i have diferent speed on enemies that code only make them run at the same speed don't work for this game  */
+        yes but since i have diferent speed on enemies that code only make them run at the same speed don't work for this game
+        as you can see when i'm creating the enemy some have 50 of speed some 100 and the ones that don't have the 35 default apply to them. */
         //this is the only code that work for me and is shorter than the last code i used
         allEnemies.forEach(enemi => enemi.x += enemi.speed * dt);
 
@@ -86,7 +92,7 @@ const enemi6 = new Enemy(randomizeLocation(), 300, 40, 50);
 class Player {
 
     constructor() {
-        this.sprite = "images/char-boy.png";
+        this.sprite = chartsArray[playerIndex];
         this.x = 200;
         this.y = 400;
         this.radius = 30;
@@ -152,18 +158,13 @@ function randomizeLocation() {
     return Math.random() * (max - min) + min;
 
 }
-
+//get distance between enemy and player
 function getDistance(x1, y1, x2, y2) {
 
     let distanceX = x2 - x1;
     let distanceY = y2 - y1;
 
     return Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2));
-}
-
-function playerStarPosition() {
-    player.x = 200;
-    player.y = 400;
 }
 // Now instantiate your objects.
 
@@ -177,7 +178,6 @@ function scoreReseter() {
     player.crashStreak = 0;
 
 }
-
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function (e) {
