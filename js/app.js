@@ -39,39 +39,39 @@ function jumping() {
     jumpSound.play();
 }
 // Enemies our player must avoid
-var Enemy = function (x, y, radius, speed = 35) {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
-
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
-    this.sprite = 'images/enemy-bug.png';
-    this.x = x;
-    this.y = y;
-    this.radius = radius;
-    this.speed = speed;
-
-
-};
-
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
-Enemy.prototype.update = function (dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
-    allEnemies.forEach(enemi => enemi.x += enemi.speed * dt);
-
-    if (this.x >= 550) {
-        this.x = randomizeLocation();
+class Enemy {
+    constructor(x, y, radius, speed = 35) {
+        // Variables applied to each of our instances go here,
+        // we've provided one for you to get started
+        // The image/sprite for our enemies, this uses
+        // a helper we've provided to easily load images
+        this.sprite = 'images/enemy-bug.png';
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+        this.speed = speed;
     }
+    // Update the enemy's position, required method for game
+    // Parameter: dt, a time delta between ticks
+    update(dt) {
+        // You should multiply any movement by the dt parameter
+        // which will ensure the game runs at the same speed for
+        // all computers.
+        /* the reviewer wanted me to do this.x += this.speed * dt i already try that but it wont works if it was only at one speed them
+        yes but since i have diferent speed on enemies that code only make them run at the same speed don't work for this game  */
+        //this is the only code that work for me and is shorter than the last code i used
+        allEnemies.forEach(enemi => enemi.x += enemi.speed * dt);
 
-};
+        if (this.x >= 550) {
+            this.x = randomizeLocation();
+        }
+    }
+    // Draw the enemy on the screen, required method for game
+    render() {
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    }
+}
 
-// Draw the enemy on the screen, required method for game
-Enemy.prototype.render = function () {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
 // instatiating enemies on different location on screen
 const enemi1 = new Enemy(randomizeLocation(), 50, 40, 100);
 const enemi2 = new Enemy(randomizeLocation(), 50, 40);
@@ -98,62 +98,54 @@ class Player {
         this.y = 400;
     }
 
+    update() {
 
-}
-
-Player.prototype.update = function () {
-
-    if (this.y < 20) {
-        this.starPosition();
-        win();
-        player.winStreak += 1;
-        player.crashStreak = 0;
-    }
-
-    allEnemies.forEach(enemi => {
-
-        if (getDistance(this.x, this.y, enemi.x, enemi.y) < this.radius + enemi.radius) {
+        if (this.y < 20) {
             this.starPosition();
-            playerDeath();
-            player.winStreak = 0;
-            player.crashStreak += 1;
-        } else if (getDistance(this.x, this.y, enemi.x, enemi.y) < this.radius + enemi.radius + 40) {
-            bugSound.play();
+            win();
+            player.winStreak += 1;
+            player.crashStreak = 0;
         }
-    });
 
-    scores.innerHTML = `WinStreaks: ${this.winStreak}&nbsp&nbsp CrashStreak: ${this.crashStreak} &nbsp&nbsp`;
-}
+        allEnemies.forEach(enemi => {
+            if (getDistance(this.x, this.y, enemi.x, enemi.y) < this.radius + enemi.radius) {
+                this.starPosition();
+                playerDeath();
+                player.winStreak = 0;
+                player.crashStreak += 1;
+            } else if (getDistance(this.x, this.y, enemi.x, enemi.y) < this.radius + enemi.radius + 40) {
+                bugSound.play();
+            }
+        });
 
-
-Player.prototype.render = function () {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
-
-Player.prototype.handleInput = function (e) {
-    // add similar logic to move character around up button working
-    if (e === "up" && this.y > 0) {
-        this.y -= 90;
-        jumping();
-    }
-    if (e === "down" && this.y < 400) {
-        this.y += 90;
-        jumping();
-    } else if (e === "left" && this.x > 0) {
-        this.x -= 100;
-        jumping();
-    } else if (e === "right" && this.x < 400) {
-        this.x += 100;
-        jumping();
+        scores.innerHTML = `WinStreaks: ${this.winStreak}&nbsp&nbsp CrashStreak: ${this.crashStreak} &nbsp&nbsp`;
     }
 
-}
+    render() {
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    }
 
+    handleInput(e) {
+        if (e === "up" && this.y > 0) {
+            this.y -= 90;
+            jumping();
+        }
+        if (e === "down" && this.y < 400) {
+            this.y += 90;
+            jumping();
+        } else if (e === "left" && this.x > 0) {
+            this.x -= 100;
+            jumping();
+        } else if (e === "right" && this.x < 400) {
+            this.x += 100;
+            jumping();
+        }
+    }
+
+}
 const allEnemies = [enemi1, enemi2, enemi3, enemi4, enemi5, enemi6];
 
 const player = new Player();
-
-
 
 // randomized the location of enemies after they go off screen to have variation on the game
 function randomizeLocation() {
