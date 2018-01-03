@@ -1,7 +1,6 @@
 //player score
 const scores = document.querySelector(".streaks");
 const resetButton = document.querySelector(".reset");
-const changePlayer = document.querySelector(".changer");
 
 const min = -100;
 const max = -500; //Math.random() * (-800 - -300) + -800;
