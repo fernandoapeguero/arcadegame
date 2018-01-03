@@ -23,9 +23,6 @@ dieSound.volume = 0.3;
 jumpSound.volume = 0.1;
 
 //array of character for the game to change them so you can play with you favorite one have fun
-let playerIndex = 0;
-const chartsArray = ['images/char-boy.png', 'images/char-cat-girl.png', 'images/char-horn-girl.png', 'images/char-pink-girl.png', 'images/char-princess-girl.png'];
-
 function playerDeath() {
     dieSound.currentTime = 0;
     dieSound.play();
@@ -87,11 +84,11 @@ const enemi6 = new Enemy(randomizeLocation(), 300, 40, 50);
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-
+let playerIndex = 1;
 class Player {
 
     constructor() {
-        this.sprite = chartsArray[playerIndex];
+        this.sprite = 'images/char-boy.png';
         this.x = 200;
         this.y = 400;
         this.radius = 30;
